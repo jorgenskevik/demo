@@ -43,6 +43,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.hbb20.CountryCodePicker;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -91,7 +92,7 @@ public class LoginActivity extends AppCompatActivity  implements
 
     private EditText mPhoneNumberField;
     private EditText mVerificationField;
-    private EditText landskode;
+    private CountryCodePicker landskode;
 
 
     private Button mStartButton;
@@ -130,7 +131,7 @@ public class LoginActivity extends AppCompatActivity  implements
 
         mPhoneNumberField = (EditText) findViewById(R.id.field_phone_number);
         mVerificationField = (EditText) findViewById(R.id.field_verification_code);
-        landskode = (EditText) findViewById(R.id.landcode);
+        landskode = (CountryCodePicker) findViewById(R.id.picker);
 
         mStartButton = (Button) findViewById(R.id.button_start_verification);
         mVerifyButton = (Button) findViewById(R.id.button_verify_phone);
@@ -208,7 +209,6 @@ public class LoginActivity extends AppCompatActivity  implements
                 // The SMS verification code has been sent to the provided phone number, we
                 // now need to ask the user to enter the code and then construct a credential
                 // by combining the code with a verification ID.
-                Log.d(TAG, "onCodeSent:" + verificationId);
 
                 // Save verification ID and resending token so we can use them later
                 mVerificationId = verificationId;
@@ -233,7 +233,9 @@ public class LoginActivity extends AppCompatActivity  implements
 
         // [START_EXCLUDE]
         if (mVerificationInProgress && validatePhoneNumber()) {
-            startPhoneNumberVerification(mPhoneNumberField.getText().toString());
+            landskode.registerCarrierNumberEditText(mPhoneNumberField);
+            //startPhoneNumberVerification(mPhoneNumberField.getText().toString());
+            startPhoneNumberVerification(landskode.getFullNumberWithPlus());
         }
         // [END_EXCLUDE]
     }
@@ -255,7 +257,8 @@ public class LoginActivity extends AppCompatActivity  implements
     private void startPhoneNumberVerification(String phoneNumber) {
         // [START start_phone_auth]
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                landskode.getText().toString() + phoneNumber,        // Phone number to verify
+                //landskode.getFullNumberWithPlus(),
+                phoneNumber,        // Phone number to verify
                 60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
@@ -277,7 +280,8 @@ public class LoginActivity extends AppCompatActivity  implements
     private void resendVerificationCode(String phoneNumber,
                                         PhoneAuthProvider.ForceResendingToken token) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                landskode.getText().toString() + phoneNumber,        // Phone number to verify
+                //landskode.getFullNumberWithPlus(),
+                phoneNumber,        // Phone number to verify
                 60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
@@ -617,7 +621,9 @@ public class LoginActivity extends AppCompatActivity  implements
                 break;
             case R.id.button_verify_phone:
                 String code = mVerificationField.getText().toString();
+                int selectedWhite = Color.rgb(255, 255, 255);
                 if (TextUtils.isEmpty(code)) {
+                    mVerificationField.setTextColor(selectedWhite);
                     mVerificationField.setError("Cannot be empty.");
                     return;
                 }

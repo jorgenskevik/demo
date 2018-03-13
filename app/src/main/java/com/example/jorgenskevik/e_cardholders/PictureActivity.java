@@ -213,9 +213,8 @@ public class PictureActivity extends Activity {
             UserAPI userapi = retrofit.create(UserAPI.class);
             bearerToken = "Bearer " + authToken.toString();
             final File file = new File(mediaPath);
-
-
             String mimeType = getMimeType(file);
+
 
             RequestBody reqFile = RequestBody.create(MediaType.parse(mimeType), file);
             MultipartBody.Part body = MultipartBody.Part.createFormData("photo", file.getName(), reqFile);

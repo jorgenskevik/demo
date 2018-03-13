@@ -330,7 +330,6 @@ public class UserActivity extends AppCompatActivity implements ActionSheet.Actio
         studentNumber = userDetails.get(SessionManager.KEY_STUDENTNUMBER);
         JodaTimeAndroid.init(this);
 
-
         if (path == null) {
             view2.setImageResource(R.drawable.facebookgirl);
 
