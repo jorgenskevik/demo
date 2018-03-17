@@ -3,6 +3,8 @@ package com.example.jorgenskevik.e_cardholders;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -51,6 +53,9 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -148,6 +153,25 @@ public class LoginActivity extends AppCompatActivity  implements
         mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
 
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try  {
+                    int selectedColor = Color.rgb(254, 0, 0);
+                    if(!hasActiveInternetConnection()){
+                        mDetailText.setText(R.string.nonet);
+                        mDetailText.setTextColor(selectedColor);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+
         // [END initialize_auth]
 
         // Initialize phone auth callbacks
@@ -179,7 +203,6 @@ public class LoginActivity extends AppCompatActivity  implements
             public void onVerificationFailed(FirebaseException e) {
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
-                Log.w(TAG, "onVerificationFailed", e);
                 // [START_EXCLUDE silent]
                 mVerificationInProgress = false;
                 // [END_EXCLUDE]
@@ -277,16 +300,19 @@ public class LoginActivity extends AppCompatActivity  implements
     }
 
     // [START resend_verification]
-    private void resendVerificationCode(String phoneNumber,
-                                        PhoneAuthProvider.ForceResendingToken token) {
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                //landskode.getFullNumberWithPlus(),
-                phoneNumber,        // Phone number to verify
-                60,                 // Timeout duration
-                TimeUnit.SECONDS,   // Unit of timeout
-                this,               // Activity (for callback binding)
-                mCallbacks,         // OnVerificationStateChangedCallbacks
-                token);             // ForceResendingToken from callbacks
+    private void resendVerificationCode(String phoneNumber, PhoneAuthProvider.ForceResendingToken token) {
+        if(!phoneNumber.equals("")){
+            PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                    //landskode.getFullNumberWithPlus(),
+                    phoneNumber,        // Phone number to verify
+                    60,                 // Timeout duration
+                    TimeUnit.SECONDS,   // Unit of timeout
+                    this,               // Activity (for callback binding)
+                    mCallbacks,         // OnVerificationStateChangedCallbacks
+                    token);             // ForceResendingToken from callbacks
+        }else{
+            Toast.makeText(this, R.string.Skrivinn, Toast.LENGTH_LONG).show();
+        }
     }
     // [END resend_verification]
 
@@ -323,6 +349,29 @@ public class LoginActivity extends AppCompatActivity  implements
     private void signOut() {
         mAuth.signOut();
         updateUI(STATE_INITIALIZED);
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
+    public boolean hasActiveInternetConnection() {
+        if (isNetworkAvailable()) {
+            try {
+                HttpURLConnection urlc = (HttpURLConnection) (new URL("http://www.google.com").openConnection());
+                urlc.setRequestProperty("User-Agent", "Test");
+                urlc.setRequestProperty("Connection", "close");
+                urlc.setConnectTimeout(1500);
+                urlc.connect();
+                return (urlc.getResponseCode() == 200);
+            } catch (IOException e) {
+            }
+        } else {
+        }
+        return false;
     }
 
     private void updateUI(int uiState) {
@@ -372,7 +421,7 @@ public class LoginActivity extends AppCompatActivity  implements
                 // Verification has succeeded, proceed to firebase sign in
                 disableViews(mStartButton, mVerifyButton, mResendButton, mPhoneNumberField,
                         mVerificationField);
-                mDetailText.setText("Verfication Sucessfull");
+                mDetailText.setText(R.string.status_verification_succeeded);
                 mDetailText.setTextColor(Color.parseColor("#43a047"));
                 progressBar.setVisibility(View.INVISIBLE);
 
@@ -412,14 +461,7 @@ public class LoginActivity extends AppCompatActivity  implements
 
             // Signed in
             mPhoneNumberViews.setVisibility(View.GONE);
-            /*
-            mSignedInViews.setVisibility(View.VISIBLE);
-            enableViews(mPhoneNumberField, mVerificationField);
-            mPhoneNumberField.setText(null);
-            mVerificationField.setText(null);
-            mStatusText.setText(R.string.signed_in);
-            mDetailText.setText(getString(R.string.firebase_status_fmt, user.getUid()));
-            */
+
 
 
             FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -488,7 +530,6 @@ public class LoginActivity extends AppCompatActivity  implements
 
                                             //skriv noe her!
                                             String bearToken = "Bearer " + tokenString;
-                                            System.out.println(refreshedToken + " : " + bearToken + " : " + KVTVariables.getAcceptVersion() + " : " + KVTVariables.getAppkey());
                                             sendRegistrationToServer(refreshedToken, bearToken, KVTVariables.getAcceptVersion(), KVTVariables.getAppkey());
                                             sessionManager.createLoginSession(usernameString,emailString, tokenString, studentNumber, id, role, pictureToken, expirationString, birthDateString, picture);
 
@@ -508,7 +549,7 @@ public class LoginActivity extends AppCompatActivity  implements
                                                 startActivity(intent);
 
                                             } else {
-                                                Intent intent = new Intent(LoginActivity.this, TermsActivity.class);
+                                                Intent intent = new Intent(LoginActivity.this, UserActivity.class);
                                                 startActivity(intent);
 
                                             }
@@ -628,7 +669,11 @@ public class LoginActivity extends AppCompatActivity  implements
                     return;
                 }
 
-                verifyPhoneNumberWithCode(mVerificationId, code);
+                try{
+                    verifyPhoneNumberWithCode(mVerificationId, code);
+                }catch (NullPointerException e){
+                    Toast.makeText(this, R.string.Skrivinn, Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.button_resend:
                 resendVerificationCode(mPhoneNumberField.getText().toString(), mResendToken);

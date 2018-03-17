@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:background="@drawable/darkblue"
     android:layout_height="match_parent"
+    android:alpha="0.9"
     tools:context="com.example.jorgenskevik.e_cardholders.PictureActivity">
+
+
 
     <ImageView
         android:id="@+id/imageView8"
@@ -16,7 +19,7 @@
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:layout_above="@+id/textView5"
-        android:src="@drawable/facebookgirl" />
+        android:src="@drawable/img" />
 
     <TextView
         android:id="@+id/textView8"
@@ -25,8 +28,8 @@
         android:layout_marginTop="15dp"
         android:text="@string/writepictureToken"
         android:layout_below="@+id/textView3"
-        android:textColor="@color/tw__solid_white"
-        android:textSize="14dp"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true" />
 
@@ -35,8 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:textColorHint="@color/tw__solid_white"
-        android:textColor="@color/tw__solid_white"
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
         android:maxLength="4"
         android:inputType="text"
         android:layout_below="@+id/textView8"
@@ -58,7 +61,7 @@
         android:layout_marginRight="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
-        android:textColor="@color/tw__solid_white"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:text="@string/setPic" />
 
@@ -77,9 +80,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView8"
         android:gravity="center"
-        android:textColor="@color/tw__solid_white"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:textSize="14dp"
+        android:textSize="14sp"
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
@@ -92,8 +95,8 @@
         android:background="@color/tw__transparent"
         android:onClick="moreInfo"
         android:text="(?)"
-        android:textColor="@color/tw__solid_white"
-        android:textColorLink="@color/tw__blue_default"
+        android:textColor="#FFFFFF"
+        android:textColorLink="@color/tw__solid_white"
         android:layout_alignBaseline="@+id/textView8"
         android:layout_alignBottom="@+id/textView8"
         android:layout_alignRight="@+id/button10"

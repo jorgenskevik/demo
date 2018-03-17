@@ -121,9 +121,12 @@ public class BarCodeActivity extends Activity{
         linearLayout.addView(imageView);
 
         Button cancel = new Button(this);
-        int selectedColor = Color.rgb(132, 205, 182);
+        int selectedColor = Color.rgb(106,145,193);
+        int selectedWhite = Color.rgb(0, 0, 0);
         cancel.setBackgroundColor(selectedColor);
         cancel.setText(R.string.CancelBarCode);
+        cancel.setTextColor(selectedWhite);
+
 
         cancel.setOnClickListener(new View.OnClickListener()
         {

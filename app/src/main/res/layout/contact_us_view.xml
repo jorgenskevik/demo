@@ -11,21 +11,6 @@
     android:paddingTop="0dp"
     tools:context="com.example.jorgenskevik.e_cardholders.ContactUsActivity">
 
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/kortfrilogo"
-        android:scaleType="fitXY"
-        android:id="@+id/kvtLOGO"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:alpha="0.1"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -9,7 +9,7 @@
     <string name="Callus">Ring KVT:</string>
     <string name="Terms">Vilkår</string>
     <string name="Picture">Bilde</string>
-    <string name="termsdescription1">Appen vil vise informasjon om navn, studiested og gyldigheten til det digitale skolebeviset. Appen vil også vise bilde av deg - som du selv velger. Appen fungerer som skolebevis, og kan benyttes som legitimasjon hos selskaper som har avtale med ditt studiested. Ved førstegangs bruk må appen være tilkoblet internett for å kunne last ned informasjonen som finnes om deg. Denne blir lagret lokalt og du trenger derfor ikke være på nett for å bruke appen senere. KortFri tar ikke ansvar for bøter, misbruk og lignende.</string>
+    <string name="termsdescription1">Appen vil vise informasjon om navn, studiested og gyldigheten til det digitale skolebeviset. Appen vil også vise bilde av deg - som du selv velger. Appen fungerer som skolebevis, og kan benyttes som legitimasjon hos selskaper som har avtale med ditt studiested. Ved førstegangs bruk må appen være tilkoblet internett for å kunne last ned informasjonen som finnes om deg. Denne blir lagret lokalt og du trenger derfor ikke være på nett for å bruke appen senere. KortFri tar ikke ansvar for bøter, misbruk og lignende. Kortet vil være gyldig et semester av gangen før det må oppdateres, vårsemestret strekker seg fra 01.01 til 31.07 og høstsemestret fra 01.08 til 31.12.</string>
     <string name="termsdescription2">Er du over 15 år og godtar våre vilkår?</string>
     <string name="termsdescription3">Kortet vil være gyldig et semester av gangen før det må oppdateres, vårsemestret strekker seg fra 01.01 til 31.07 og høstsemestret fra 01.08 til 31.12.</string>
     <string name="barcode">Barkode</string>
@@ -33,7 +33,7 @@
     <string name="youareadmin">Du er admin, bruk web-applikasjonen</string>
     <string name="contactIT">Ta kontakt med IT-avdelingen</string>
     <string name="studentbevis">STUDENTBEVIS</string>
-    <string name="companynamelong">KortFri Norge - Demo</string>
+    <string name="companynameLong">KortFri Norge - Demo</string>
     <string name="companyname">KortFri</string>
     <string name="GyldigTil">Gyldig for </string>
     <string name="expired">UTGÅTT</string>
@@ -44,13 +44,11 @@
     <string name="writepictureToken">Skriv inn bildekode:</string>
     <string name="setPic">Sett bilde</string>
     <string name="back">Tilbake</string>
-
     <string name="login123">Logg inn</string>
     <string name="infomasjon">Kontaktinformasjon</string>
-
+    <string name="nonet">Koble til Wifi</string>
     <string name="verification">Innlogging vellykket</string>
     <string name="landskode">Landskode:</string>
-
     <string name="label_phone_auth">Phone Number Authentication</string>
     <string name="desc_phone_auth">Use a phone number to authenticate with Firebase.</string>
     <string name="signed_in">Write phone number</string>
@@ -58,17 +56,19 @@
     <string name="verify_phone_auth">Logg inn</string>
     <string name="resend_phone_auth">Send på ny</string>
     <string name="hint_phone_number">Mobilnummer</string>
-    <string name="hint_verification_code">VerifiseringsKode</string>
+    <string name="hint_verification_code">Verifiseringskode</string>
     <string name="status_code_sent">Kode Sendt</string>
-    <string name="status_verification_failed">Verification failed</string>
-    <string name="status_verification_succeeded">Verification succeeded</string>
+    <string name="status_verification_failed">Verification feilet</string>
+    <string name="status_verification_succeeded">Verifisering vellykket</string>
     <string name="status_sign_in_failed">Sign-in failed</string>
     <string name="instant_validation">(instant validation)</string>
     <string name="phone_title_text">Phone Number</string>
     <string name="sign_out">Sign out</string>
     <string name="default_notification_channel_name" translatable="true">News</string>
-
     <string name="spring">Vårsemester</string>
+    <string name="Yes">Ja</string>
+    <string name="Cancel">Avbryt</string>
+    <string name="Skrivinn">Fyll inn mobilnummer</string>
     <string name="fall">Høstsemester</string>
     <string name="checkBox">Jeg godtar</string>
     <string name="moreInfo">Kontakt IT-avdelingen for å få din kode</string>

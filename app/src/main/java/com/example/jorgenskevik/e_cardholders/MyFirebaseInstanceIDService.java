@@ -38,7 +38,6 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     // [START refresh_token]
     @Override
     public void onTokenRefresh() {
-        System.out.println("skjer det noe refresh maaffaka???---------------");
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
 
@@ -59,7 +58,6 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
      */
     private void sendRegistrationToServer(String token) {
         User user;
-        System.out.println("blir denne metoden kjørt...............?");
         HashMap<String,String> authHeader = new HashMap<String, String>();
         HashMap<String, String> userDetails;
 

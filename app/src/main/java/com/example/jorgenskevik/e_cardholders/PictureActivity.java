@@ -228,8 +228,6 @@ public class PictureActivity extends Activity {
                         sessionManager.updatePicture(user.getPicture());
                         sessionManager.updatePath(mediaPath);
                         sessionManager.updatePictureToken("BRUKT");
-                        sessionManager.updateTurn(getCameraPhotoOrientation(mediaPath));
-
 
                         ContextWrapper cw = new ContextWrapper(getApplicationContext());
                         File directory = cw.getDir(studentNumber, Context.MODE_PRIVATE);
@@ -282,33 +280,6 @@ public class PictureActivity extends Activity {
         return type;
     }
 
-
-    public String getCameraPhotoOrientation(String imagePath) {
-        String rotate = "kortfri";
-        try {
-            File imageFile = new File(imagePath);
-            ExifInterface exif = new ExifInterface(imageFile.getAbsolutePath());
-            int orientation = exif.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_NORMAL);
-
-            switch (orientation) {
-                case ExifInterface.ORIENTATION_ROTATE_270:
-                    rotate = "270";
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    rotate = "180";
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    rotate = "90";
-                    break;
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return rotate;
-    }
 
     private Target picassoImageTarget(Context context, final String imageDir, final String imageName) {
         ContextWrapper cw = new ContextWrapper(context);
